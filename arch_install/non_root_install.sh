@@ -26,7 +26,7 @@ fi
 
 read -rp "Set up Desktop Environment(sway)? (y/n): " setup_desktop
 if [[ "${setup_desktop,,}" == "y" ]]; then
-    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv gvfs gvfs-mtp wofi nautilus mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip ufw neovim htop ly
+    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv gvfs gvfs-mtp wofi nautilus mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip ufw neovim htop ly bash-completion
 
     sudo tee /etc/environment > /dev/null << 'EOF'
 QT_QPA_PLATFORMTHEME=qt5ct
@@ -62,3 +62,9 @@ if [[ "${setup_yay,,}" == "y" ]]; then
 fi
 
 echo "Setup complete. Reboot recommended."
+echo
+echo "IMPORTANT"
+echo "If this is a Laptop, install tlp and enable it by doing"
+echo "sudo pacman -S --noconfirm tlp"
+echo "sudo systemctl enable tlp"
+echo
