@@ -47,6 +47,13 @@ EOF
     sudo systemctl enable NetworkManager ufw ly
     echo "username=\"$USER\"" | sudo tee -a /etc/ly/config.ini > /dev/null
 
+    sudo ufw limit 22/tcp 
+    sudo ufw allow 80/tcp 
+    sudo ufw allow 443/tcp 
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
+    sudo ufw enable
+
 fi
 
 read -rp "Install Yay? (y/n): " setup_yay
