@@ -35,7 +35,8 @@ XDG_CURRENT_DESKTOP=sway
 COLOR_SCHEME=dark
 EOF
 
-    git clone https://github.com/truerexdy/dotfiles.git
+    #git clone https://github.com/truerexdy/dotfiles.git
+    git clone https://gitlab.com/rexdy/dotfiles.git
 
     mkdir -p ~/.config/
     [[ -d "dotfiles/dotconfig" ]] && cp -r dotfiles/dotconfig/* ~/.config/
