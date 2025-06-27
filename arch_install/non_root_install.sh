@@ -40,13 +40,14 @@ EOF
 
     mkdir -p ~/.config/
     [[ -d "dotfiles/dotconfig" ]] && cp -r dotfiles/dotconfig/* ~/.config/
+    [[ -d "dotfiles/bashrc" ]] && cp dotfiles/bashrc ~/.bashrc
     if [[ -d "dotfiles/my_fonts" ]]; then
         sudo cp -r dotfiles/my_fonts /usr/share/fonts/
         fc-cache -f
     fi
 
     sudo systemctl enable NetworkManager ufw ly
-    echo "username=\"$USER\"" | sudo tee -a /etc/ly/config.ini > /dev/null
+    echo "username=$USER" | sudo tee -a /etc/ly/config.ini > /dev/null
 
     sudo ufw limit 22/tcp 
     sudo ufw allow 80/tcp 
