@@ -1,8 +1,8 @@
-version: '3.9'
+version: "3.9"
 
 services:
   db:
-    image: mariadb:11
+    image: mariadb
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
@@ -15,17 +15,18 @@ services:
       - ncnet
 
   app:
-    image: nextcloud:28-apache
+    build: .
     restart: unless-stopped
     ports:
       - "8080:80"
+      - "8443:443"
     environment:
       MYSQL_HOST: db
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: ncuser
       MYSQL_PASSWORD: ncpass
     volumes:
-      - ./data:/var/www/html
+      - ./cloud:/var/www/html
       - ./config:/var/www/html/config
     depends_on:
       - db
@@ -35,4 +36,6 @@ services:
 networks:
   ncnet:
     driver: bridge
+  podman_default:
+    external: true
 

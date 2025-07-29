@@ -6,6 +6,7 @@ services:
     container_name: jellyfin
     ports:
       - "8096:8096/tcp"
+      - "8920:8920/tcp"
       - "7359:7359/udp"
     volumes:
       - ./jellyfin/config:/config
@@ -16,7 +17,7 @@ services:
     restart: 'unless-stopped'
 
   db:
-    image: mariadb:11
+    image: mariadb
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
@@ -24,23 +25,24 @@ services:
       MYSQL_USER: ncuser
       MYSQL_PASSWORD: ncpass
     volumes:
-      - ./nextcloud/db:/var/lib/mysql
+      - ./nextcloud/db/:/var/lib/mysql
     networks:
       - ncnet
 
   app:
-    image: nextcloud:28-apache
+    build: ./nextcloud/
     restart: unless-stopped
     ports:
       - "8080:80"
+      - "8443:443"
     environment:
       MYSQL_HOST: db
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: ncuser
       MYSQL_PASSWORD: ncpass
     volumes:
-      - ./nextcloud/cloud:/var/www/html
-      - ./nextcloud/config:/var/www/html/config
+      - ./nextcloud/cloud/:/var/www/html
+      - ./nextcloud/config/:/var/www/html/config
     depends_on:
       - db
     networks:
@@ -49,5 +51,3 @@ services:
 networks:
   ncnet:
     driver: bridge
-  podman:
-    external: true
