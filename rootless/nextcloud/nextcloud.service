@@ -1,10 +1,10 @@
 [Unit]
-Description=Service
+Description=NextCloud
 After=network.target
 
 [Service]
 Type=exec
-WorkingDirectory=/path/to/docker-compose/dir
+WorkingDirectory=/path/to/podman-compose/dir
 ExecStart=/usr/bin/podman-compose start
 ExecStop=/usr/bin/podman-compose stop
 Restart=always
