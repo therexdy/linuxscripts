@@ -1,0 +1,16 @@
+[Unit]
+Description=Immich
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=/path/to/docker-compose/dir
+ExecStart=/usr/bin/podman-compose up
+ExecStop=/usr/bin/podman-compose down
+Restart=always
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
+

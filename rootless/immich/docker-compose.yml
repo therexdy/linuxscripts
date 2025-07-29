@@ -1,0 +1,88 @@
+version: "3.9"
+
+name: immich
+services:
+  database:
+    container_name: immich_postgres
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:5f6a838e4e44c8e0e019d0ebfe3ee8952b69afc2809b2c25f7b0119641978e91
+    environment:
+      POSTGRES_PASSWORD: sJfo9nRD7tqb58sC
+      POSTGRES_USER: postgres
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+      DB_STORAGE_TYPE: 'HDD'
+      TZ: Asia/Kolkata
+    volumes:
+      - ./db/:/var/lib/postgresql/data
+    shm_size: 128mb
+    restart: always
+    networks:
+      - imnet
+
+  redis:
+    container_name: immich_redis
+    image: docker.io/valkey/valkey:8-bookworm@sha256:facc1d2c3462975c34e10fccb167bfa92b0e0dbd992fc282c29a61c3243afb11
+    healthcheck:
+      test: redis-cli ping || exit 1
+    restart: always
+    networks:
+      - imnet
+
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:release
+    volumes:
+      - ./data/:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Asia/Kolkata
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=sJfo9nRD7tqb58sC
+      - DB_DATABASE_NAME=immich
+    depends_on:
+      - redis
+      - database
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - imnet
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    volumes:
+      - ./cache/:/cache
+    environment:
+      - TZ=Asia/Kolkata
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=sJfo9nRD7tqb58sC
+      - DB_DATABASE_NAME=immich
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - imnet
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: immich_nginx
+    volumes:
+      - ./tls:/etc/nginx/tls:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "7443:443"
+    depends_on:
+      - immich-server
+    restart: always
+    networks:
+      - imnet
+
+networks:
+  imnet:
+    driver: bridge
+

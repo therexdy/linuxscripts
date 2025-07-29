@@ -17,5 +17,5 @@ services:
     restart: 'unless-stopped'
 
 networks:
-  podman_default:
+  podman:
     external: true
