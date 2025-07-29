@@ -1,4 +1,4 @@
-FROM nextcloud:28-apache
+FROM nextcloud:latest
 
 COPY TLS/cert.pem /etc/ssl/certs/cert.pem
 COPY TLS/key.pem /etc/ssl/private/key.pem
