@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  samba-server:
+    build: .
+    container_name: samba-server
+    ports:
+      - "139:139"
+      - "445:445"
+    volumes:
+      - ./start.sh:/app/start.sh
+      - ./smb.conf:/etc/samba/smb.conf
+      - ./nas:/app/nas/
+    privileged: true
+    restart: always
+
+networks:
+  podman:
+    external: true

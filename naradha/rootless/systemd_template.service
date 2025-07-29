@@ -1,0 +1,17 @@
+[Unit]
+Description=Podman Compose Service for %i
+After=network.target
+Requires=network-online.target
+
+[Service]
+Type=exec
+WorkingDirectory=/home/banta/%i
+ExecStart=/usr/bin/podman-compose start
+ExecStop=/usr/bin/podman-compose stop
+Restart=always
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
+

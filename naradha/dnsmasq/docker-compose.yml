@@ -1,0 +1,19 @@
+
+services:
+  dnsmasq:
+    image: dockurr/dnsmasq
+    container_name: dnsmasq
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+      - ./blocklist.conf:/etc/blocklist.conf
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: host
+    privileged: true
+    restart: always
+
+networks:
+  podman:
+    external: true
+
