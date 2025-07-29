@@ -1,10 +1,14 @@
-1. Download and put the server.jar in the server directory.
-2. Copy the init_run.sh to server directory, make sure server.jar exists in that dir and run the init_run.sh. Then stop it after it's normal startup is done.
-3. Modify the settings in the server.properties if needed, a template also given, copy that template along with the eula.txt to the server directory.
-4. Now that you have agreed to eula and server.properties is edited, run th init_run.sh again and stop once the normal startup is done.
-4. If you already have a world, copy the world files into server/world.
-5. Then run the setup.sh
+# Step 1
+Download the server.jar file of required version and move it to the ./server/ dir.
 
-Setup is done.
+# Step 2
+Inside the ./server/ dir run the init_run.sh script, once it's started, stop it by typing stop and pressing enter.
 
-To start the server run start.sh
+# Step 3 
+Make sure the eula.txt is set to true in ./server/eula.txt and you can make changes to the ./server/server.properties if you want.
+
+# Step 4
+In the ./ dir run `docker compose up -d`.
+
+# Step 5
+Edit the systemd file, copy it to ~/.config/systemd/user and enable it.

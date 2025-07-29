@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  minecraft_server:
+    build: .
+    container_name: minecraft_server
+    ports:
+      - 25565:25565
+    volumes:
+      - ./server/:/app
+    restart: unless-stopped
+
+networks:
+  podman:
+    external: true
+

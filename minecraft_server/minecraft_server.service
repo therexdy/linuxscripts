@@ -1,0 +1,16 @@
+[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=/path/to/docker-compose/dir
+ExecStart=/usr/bin/podman-compose start
+ExecStop=/usr/bin/podman-compose stop
+Restart=always
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
+
