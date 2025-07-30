@@ -1,0 +1,15 @@
+[Unit]
+Description=FRP Server
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=/path/to/frp
+Environment=FRP_TOKEN=
+Environment=FRP_PASSWORD=
+ExecStart=/path/to/frps -c /path/to/frps.json
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+

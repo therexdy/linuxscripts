@@ -1,0 +1,23 @@
+{
+  "serverAddr": "x.x.x.x",
+  "serverPort": 7000,
+  "auth": {
+    "method": "token",
+    "token": "${FRP_TOKEN}"
+  },
+  "transport": {
+    "tls": {
+      "enable": true
+    }
+  },
+  "proxies": [
+    {
+      "name": "ssh",
+      "type": "tcp",
+      "localIP": "127.0.0.1",
+      "localPort": 22,
+      "remotePort": 50022
+    }
+  ]
+}
+

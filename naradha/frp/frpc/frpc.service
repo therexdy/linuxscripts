@@ -1,0 +1,12 @@
+[Unit]
+Description=FRP Client
+After=network.target
+
+[Service]
+Type=exec
+Environment=FRP_TOKEN=
+ExecStart=/path/to/frp/frpc -c /path/to/frp/frpc.json
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

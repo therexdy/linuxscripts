@@ -1,0 +1,28 @@
+{
+  "bindAddr": "0.0.0.0",
+  "bindPort": 7000,
+  "auth": {
+    "method": "token",
+    "token": "${FRP_TOKEN}"
+  },
+  "webServer": {
+    "addr": "127.0.0.1",
+    "port": 7500,
+    "user": "root",
+    "password": "${FRP_PASSWORD}"
+  },
+  "log": {
+    "to": "./frps.log",
+    "level": "info",
+    "maxDays": 3,
+    "disablePrintColor": false
+  },
+  "transport": {
+    "tls": {
+      "certFile": "./tls/cert.pem",
+      "keyFile": "./tls/key.pem",
+      "force": true
+    }
+  }
+}
+
