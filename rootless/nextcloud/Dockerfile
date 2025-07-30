@@ -1,7 +1,7 @@
 FROM nextcloud:latest
 
-COPY TLS/cert.pem /etc/ssl/certs/cert.pem
-COPY TLS/key.pem /etc/ssl/private/key.pem
+COPY tls/cert.pem /etc/ssl/certs/cert.pem
+COPY tls/key.pem /etc/ssl/private/key.pem
 
 RUN apt-get update && apt-get install -y ssl-cert
 
