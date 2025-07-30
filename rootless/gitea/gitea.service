@@ -1,5 +1,5 @@
 [Unit]
-Description=Service
+Description=Gitea
 After=network.target
 
 [Service]
