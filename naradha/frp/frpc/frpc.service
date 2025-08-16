@@ -1,12 +1,14 @@
 [Unit]
-Description=FRP Client
+Description=FRPC
 After=network.target
 
 [Service]
-Type=exec
-Environment=FRP_TOKEN=
-ExecStart=/path/to/frp/frpc -c /path/to/frp/frpc.json
-Restart=on-failure
+Type=simple
+User=banta
+WorkingDirectory=/path/to/frp/bin
+ExecStart=/path/to/frp/bin/frpc -c /path/to/frp/bin/frpc.json
+Restart=always
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
+

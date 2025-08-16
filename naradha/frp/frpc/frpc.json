@@ -1,9 +1,9 @@
 {
-  "serverAddr": "x.x.x.x",
+  "serverAddr": "100.100.100.100",
   "serverPort": 7000,
   "auth": {
     "method": "token",
-    "token": "${FRP_TOKEN}"
+    "token": "secret-token"
   },
   "transport": {
     "tls": {
@@ -17,6 +17,13 @@
       "localIP": "127.0.0.1",
       "localPort": 22,
       "remotePort": 50022
+    },
+    {
+      "name": "proxy",
+      "type": "tcp",
+      "localIP": "127.0.0.1",
+      "localPort": 8920,
+      "remotePort": 58920
     }
   ]
 }

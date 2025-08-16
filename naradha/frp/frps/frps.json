@@ -3,13 +3,13 @@
   "bindPort": 7000,
   "auth": {
     "method": "token",
-    "token": "${FRP_TOKEN}"
+    "token": "secret-token"
   },
   "webServer": {
-    "addr": "127.0.0.1",
+    "addr": "0.0.0.0",
     "port": 7500,
     "user": "root",
-    "password": "${FRP_PASSWORD}"
+    "password": "password-for-dashboard"
   },
   "log": {
     "to": "./frps.log",
