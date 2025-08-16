@@ -1,11 +1,9 @@
-version: "3.9"
-
 services:
   db:
     image: mariadb:latest
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: root-password
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: ncuser
       MYSQL_PASSWORD: ncpass
@@ -26,7 +24,7 @@ services:
       MYSQL_USER: ncuser
       MYSQL_PASSWORD: ncpass
     volumes:
-      - ./cloud:/var/www/html
+      - /home/nas/cloud:/var/www/html
       - ./config:/var/www/html/config
     depends_on:
       - db
@@ -36,6 +34,3 @@ services:
 networks:
   ncnet:
     driver: bridge
-  podman_default:
-    external: true
-
