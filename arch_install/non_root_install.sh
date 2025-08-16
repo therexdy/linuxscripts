@@ -26,7 +26,13 @@ fi
 
 read -rp "Set up Desktop Environment(sway)? (y/n): " setup_desktop
 if [[ "${setup_desktop,,}" == "y" ]]; then
-    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv gvfs gvfs-mtp wofi nautilus mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip ufw neovim htop ly bash-completion
+    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv thunar thunar-volman tumbler ffmpegthumbnailer thunar-archive-plugin file-roller gvfs gvfs-smb gvfs-afc gvfs-mtp gvfs-nfs samba avahi nss-mdns wofi mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip ufw neovim htop ly bash-completion
+
+    sudo systemctl enable --now avahi-daemon
+
+    if ! grep -q "mdns_minimal" /etc/nsswitch.conf; then
+        sudo sed -i 's/^\(hosts:.*\) resolve/\1 mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
+    fi
 
     sudo tee /etc/environment > /dev/null << 'EOF'
 QT_QPA_PLATFORMTHEME=qt5ct
