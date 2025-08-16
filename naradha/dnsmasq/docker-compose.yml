@@ -5,7 +5,11 @@ services:
     container_name: dnsmasq
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
-      - ./blocklist.conf:/etc/blocklist.conf
+      - ./lists/blocklist.conf:/etc/blocklist.conf
+      - ./lists/peterlowe.conf:/etc/peterlowe.conf
+      - ./lists/peterlowev6.conf:/etc/peterlowev6.conf
+      - ./lists/proplus.conf:/etc/proplus.conf
+      - ./log/dnsmasq.log:/var/log/dnsmasq.log
     cap_add:
       - NET_ADMIN
       - NET_RAW

@@ -5,9 +5,9 @@ Requires=network-online.target
 
 [Service]
 Type=exec
-WorkingDirectory=<path to the docker-compose.yml dir>
-ExecStart=/usr/bin/podman-compose up
-ExecStop=/usr/bin/podman-compose down
+WorkingDirectory=/path/to/docker/compose/dir
+ExecStart=/usr/bin/podman-compose start
+ExecStop=/usr/bin/podman-compose stop
 Restart=always
 TimeoutStartSec=30
 TimeoutStopSec=30
