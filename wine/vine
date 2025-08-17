@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+if [ $# -lt 2 ]; then
+  echo "Usage: vine <wine_prefix> <path_to_exe> [additional_args...]"
+  exit 1
+fi
+
+prefix="$1"
+shift
+exe="$1"
+shift
+
+if [ ! -d "$prefix" ]; then
+  echo "Wine prefix '$prefix' does not exist. Creating it now..."
+  WINEPREFIX="$prefix" winecfg >/dev/null 2>&1 || {
+    echo "Failed to create wine prefix '$prefix'"
+    exit 1
+  }
+fi
+
+if [ ! -f "$exe" ]; then
+  echo "Error: Executable '$exe' does not exist."
+  exit 1
+fi
+
+WINEPREFIX="$prefix" wine "$exe" "$@"
+
