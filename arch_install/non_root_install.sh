@@ -28,7 +28,7 @@ fi
 
 read -rp "Set up Desktop Environment (Sway)? (y/n): " setup_desktop
 if [[ "${setup_desktop,,}" == "y" ]]; then
-    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv thunar thunar-volman tumbler ffmpegthumbnailer thunar-archive-plugin file-roller gvfs gvfs-smb gvfs-afc gvfs-mtp gvfs-nfs samba avahi nss-mdns wofi mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip ufw neovim htop ly bash-completion fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool
+    sudo pacman -S --noconfirm networkmanager ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp vlc imv thunar thunar-volman tumbler ffmpegthumbnailer thunar-archive-plugin file-roller gvfs gvfs-smb gvfs-afc gvfs-mtp gvfs-nfs samba avahi nss-mdns wofi mako xdg-desktop-portal-wlr udisks2 brightnessctl terminator tmux qt5ct qt6ct gnome-themes-extra breeze zip unzip nftables neovim htop ly bash-completion fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool
 
     sudo systemctl enable --now avahi-daemon
 
@@ -74,18 +74,11 @@ EOF
         echo 'export INPUT_METHOD=fcitx'
     } >> "$FCITX_ENV_FILE"
 
-    sudo systemctl enable NetworkManager ufw ly
+    sudo systemctl enable NetworkManager ly
 
     if ! grep -q "^username=" /etc/ly/config.ini 2>/dev/null; then
         echo "username=$USER" | sudo tee -a /etc/ly/config.ini > /dev/null
     fi
-
-    sudo ufw limit 22/tcp 
-    sudo ufw allow 80/tcp 
-    sudo ufw allow 443/tcp 
-    sudo ufw default deny incoming
-    sudo ufw default allow outgoing
-    sudo ufw enable
 fi
 
 read -rp "Install Yay (AUR helper)? (y/n): " setup_yay
