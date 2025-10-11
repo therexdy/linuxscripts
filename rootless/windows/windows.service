@@ -1,0 +1,16 @@
+[Unit]
+Description=Windows Cloud Computer
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=/home/banta/rootless/windows
+ExecStart=/usr/bin/podman-compose up
+ExecStop=/usr/bin/podman-compose down
+Restart=on-failure
+TimeoutStartSec=30s
+TimeoutStopSec=60s
+
+[Install]
+WantedBy=default.target
+WantedBy=shutdown.target

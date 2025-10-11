@@ -5,7 +5,6 @@ IFS=$'\n\t'
 
 echo "Starting Arch Linux Desktop Environment setup."
 
-# Ensure sudo keeps asking for password if it expires
 sudo -v || exit 1
 
 read -rp "Set up CUPS? (y/n): " setup_cups
@@ -94,9 +93,9 @@ if [[ "${setup_yay,,}" == "y" ]]; then
 fi
 
 echo
-echo "✅ Setup complete. Reboot recommended."
+echo "Setup complete. Reboot recommended."
 echo
-echo "📌 IMPORTANT:"
+echo "IMPORTANT:"
 echo "- If this is a laptop, install TLP and enable it:"
 echo "    sudo pacman -S --noconfirm tlp"
 echo "    sudo systemctl enable tlp"
