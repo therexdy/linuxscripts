@@ -1,16 +1,100 @@
 #!/bin/bash
 
-pacman_packages=(iproute2 net-tools dhcpcd wpa_supplicant networkmanager iw wireless_tools rfkill iputils traceroute mtr nmap netcat tcpdump curl wget ethtool bind dnsutils nftables bmon)
+set -e
 
-apt_packages=(iproute2 net-tools isc-dhcp-client wpasupplicant network-manager iw wireless-tools rfkill iputils-ping traceroute mtr nmap netcat-openbsd tcpdump curl wget ethtool bind9-host dnsutils nftables bmon)
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        echo "$ID"
+    else
+        echo "unknown"
+    fi
+}
 
-if command -v apt > /dev/null 2>&1; then
-    apt-get update
-    apt-get -y install "${apt_packages[@]}" 
-elif command -v pacman > /dev/null 2>&1; then
-    pacman -Sy
-    pacman -S --noconfirm "${pacman_packages[@]}" 
-else
-    echo "No supported package manager found"
-    exit 1
-fi
+DISTRO=$(detect_distro)
+
+case "$DISTRO" in
+    ubuntu|debian)
+        echo "Detected Debian-based system"
+        apt-get update
+        apt-get -y install \
+            iproute2 \
+            net-tools \
+            isc-dhcp-client \
+            wpasupplicant \
+            network-manager \
+            iw \
+            wireless-tools \
+            rfkill \
+            iputils-ping \
+            traceroute \
+            mtr \
+            nmap \
+            netcat-openbsd \
+            tcpdump \
+            curl \
+            wget \
+            ethtool \
+            bind9-host \
+            dnsutils \
+            nftables \
+            bmon
+        ;;
+    arch|manjaro)
+        echo "Detected Arch-based system"
+        pacman -Sy --noconfirm
+        pacman -S --noconfirm \
+            iproute2 \
+            net-tools \
+            dhcpcd \
+            wpa_supplicant \
+            networkmanager \
+            iw \
+            wireless_tools \
+            rfkill \
+            iputils \
+            traceroute \
+            mtr \
+            nmap \
+            netcat \
+            tcpdump \
+            curl \
+            wget \
+            ethtool \
+            bind \
+            nftables \
+            bmon
+        ;;
+    fedora|rhel|centos|rocky|almalinux)
+        echo "Detected RedHat-based system"
+        dnf update -y
+        dnf install -y \
+            iproute \
+            net-tools \
+            dhcp-client \
+            wpa_supplicant \
+            NetworkManager \
+            iw \
+            wireless-tools \
+            rfkill \
+            iputils \
+            traceroute \
+            mtr \
+            nmap \
+            nmap-ncat \
+            tcpdump \
+            curl \
+            wget \
+            ethtool \
+            bind-utils \
+            nftables \
+            bmon
+        ;;
+    *)
+        echo "Unsupported distribution: $DISTRO"
+        exit 1
+        ;;
+esac
+
+echo "Network tools installation complete!"
+
