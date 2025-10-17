@@ -49,6 +49,7 @@ EOF
     }
 
     mkdir -p "$HOME/.config/"
+    mkdir -p "$HOME/.local/share/nvim/undo/"
 
     if [[ -d "dotfiles/dotconfig" ]]; then
         cp -r dotfiles/dotconfig/* "$HOME/.config/"
